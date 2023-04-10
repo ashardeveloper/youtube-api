@@ -31,6 +31,11 @@ app.use("/api/videos", videoRoute);
 app.use("/api/comments", commentRoute);
 app.use("/api/auth", authRoute);
 
+// Route for the root path
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
 app.use((err, req, res, next) => {
   const status = err.status || 500;
   const message = err.message || "Something went wrong!";
