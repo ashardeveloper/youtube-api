@@ -29,7 +29,7 @@ export const signin = async (req, res, next) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     const { password, ...others } = user._doc;
     
-    res.setHeader('Set-Cookie', `access_token=${token}; HttpOnly; Secure; SameSite=strict`);
+    res.setHeader('Set-Cookie', `access_token=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=3600`);
     res.status(200).json(others);
     
   } catch (err) {
@@ -43,7 +43,7 @@ export const googleAuth = async (req, res, next) => {
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       
-      res.setHeader('Set-Cookie', `access_token=${token}; HttpOnly; Secure; SameSite=Strict`);
+      res.setHeader('Set-Cookie', `access_token=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=3600`);
       res.status(200).json(user._doc);
       
     } else {
@@ -54,7 +54,7 @@ export const googleAuth = async (req, res, next) => {
       const savedUser = await newUser.save();
       const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
      
-      res.setHeader('Set-Cookie', `access_token=${token}; HttpOnly; Secure; SameSite=Strict`);
+      res.setHeader('Set-Cookie', `access_token=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=3600`);
       res.status(200).json(user._doc);
     }
   } catch (err) {
